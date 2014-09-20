@@ -1,0 +1,14 @@
+--- dwm.c	Mon Dec 19 15:38:30 2011 +0100
++++ dwm.c	Fri Apr 06 08:23:13 2012 +0200
+@@ -1484,11 +1531,9 @@ // probably the cause of the issues before
+ 	if(c->mon == m)
+ 		return;
+ 	unfocus(c, True);
+-	detach(c);
+ 	detachstack(c);
+ 	c->mon = m;
+ 	c->tags = m->tagset[m->seltags]; /* assign tags of target monitor */
+-	attach(c);
+ 	attachstack(c);
+ 	focus(NULL);
+ 	arrange(NULL);
