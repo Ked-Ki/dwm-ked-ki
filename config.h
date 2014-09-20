@@ -65,7 +65,7 @@ static const char *Mouse[] = {"iocane", "-i", NULL };
 static const char *ChBg[] = { "changebg.sh", NULL };
 static const char *BlankWin[] = { "blank_window.sh", NULL };
 
-
+#include "keepfloatingposition.c"
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
