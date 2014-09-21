@@ -59,13 +59,11 @@ static const char *AudioLowerVolume[] = { "amixer", "set", "Master", "5%-", NULL
 static const char *MusicRaiseVolume[] = { "mpc", "-q", "volume", "+5", NULL }; 
 static const char *AudioRaiseVolume[] = { "amixer", "set", "Master", "5%+", NULL }; 
 static const char *AudioMute[] = { "amixer", "set", "Master", "toggle", NULL }; 
-static const char *TouchpadToggle[] = { "touchpad-toggle.sh", NULL };
 static const char *LockScreen[] = { "i3lock_with_bg.sh", NULL };
 static const char *Mouse[] = {"iocane", "-i", NULL };
 static const char *ChBg[] = { "changebg.sh", NULL };
 static const char *BlankWin[] = { "blank_window.sh", NULL };
 
-#include "keepfloatingposition.c"
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
