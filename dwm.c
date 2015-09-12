@@ -340,8 +340,10 @@ applyrules(Client *c) {
 		&& (!r->instance || strstr(instance, r->instance)))
 		{
 			c->isfloating = r->isfloating;
-			c->tags |= r->tags;
+			c->tags = r->tags;
+            printf("before for loop\n");
 			for(m = mons; m && (m->tagset[m->seltags] & c->tags) == 0; m = m->next) ;
+            printf("after for loop\n");
 			if(m)
 				c->mon = m;
 		}
@@ -490,38 +492,6 @@ attachclients(Monitor *m) {
 		for(tm = mons; tm; tm = tm->next)
 			if(tm != m)
 				arrange(tm);
-}
-
-void
-attachclients(Monitor *m) {
-    /* attach clients to the specified monitor */
-    Monitor *tm;
-    Client *c;
-    unsigned int utags = 0;
-    Bool rmons = False;
-    if(!m)
-        return;
-
-    /* collect information about the tags in use */
-    for(tm = mons; tm; tm = tm->next)
-        if(tm != m)
-            utags |= m->tagset[m->seltags];
-    
-    for(c = m->cl->clients; c; c = c->next)
-        if(ISVISIBLE(c, m)) {
-            /* if client is also visible on other tags that are displayed on
-             * other monitors, remove these tags */
-            if(c->tags & utags) {
-                c->tags = c->tags & m->tagset[m->seltags];
-            }
-            unfocus(c, True);
-            c->mon = m;
-        }
-
-    if(rmons)
-        for(tm = mons; tm; tm = tm->next)
-            if(tm != m)
-                arrange(tm);
 }
 
 void
@@ -1769,8 +1739,6 @@ showhide(Client *c) {
 	if(ISVISIBLE(c, c->mon)) { /* show clients top down */
 		XMoveWindow(dpy, c->win, c->x, c->y);
 		if((!c->mon->lt[c->mon->sellt]->arrange || c->isfloating) && !c->isfullscreen)
-			if(c->isfloating)
-				keepfloatingposition(c);
 			resize(c, c->x, c->y, c->w, c->h, False);
 		showhide(c->snext);
 	}

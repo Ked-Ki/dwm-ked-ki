@@ -16,11 +16,11 @@ static const Bool extrabar          = True;     /* False means no extra bar */
 static const Bool statusmarkup      = True;     /* True means use pango markup in status message */
 
 /* tagging */
-static const char *tags[] = { "term", "web", "games", "4", "5", "6", "7", "8", "9"};
+static const char *tags[] = { "term", "web", "games", "4", "5", "6", "7", "8", "video"};
 
 static const Rule rules[] = {
 	/* class      instance    title       tags mask     isfloating   monitor */
-	{ NULL,       NULL,       NULL,       0,       False,       -1 },
+	{ NULL,       NULL,       NULL,       0,            False,       -1 },
 };
 
 /* layout(s) */
@@ -47,7 +47,7 @@ static const Layout layouts[] = {
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
-static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
+static char dmenumon[2] = "1"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "run-recent.sh", "-fn", font, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
 static const char *termcmd[]  = { "urxvt", "-tr", "-sh", "15", NULL };
 static const char *AudioPrev[] = { "music_control.sh", "-c", "prev", NULL }; 
@@ -78,7 +78,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY|ShiftMask,             XK_h,      setmfact,       {.f = 1.50} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} }, 
-    { MODKEY,                       XK_Return, zoom,           {0} },
+  { MODKEY,                       XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
@@ -99,35 +99,37 @@ static Key keys[] = {
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 
-        /* Multimedia Keys */
-        { 0,                            0x1008ff16,spawn,          {.v = AudioPrev } },
-        { ControlMask,                  XK_F8,     spawn,          {.v = AudioPrev } },
-        { 0,                            0x1008ff14,spawn,          {.v = AudioPlay } },
-        { ControlMask,                  XK_F9,     spawn,          {.v = AudioPlay } },
-        { 0,                            0x1008ff17,spawn,          {.v = AudioNext } },
-        { ControlMask,                  XK_F10,    spawn,          {.v = AudioNext } },
-        { MODKEY,                       XK_F9,     spawn,          {.v = AudioPauseAfterNext } },
-        { 0,                            0x1008ff11,spawn,          {.v = AudioLowerVolume } },
-        { ShiftMask,                    0x1008ff11,spawn,          {.v = MusicLowerVolume } },
-        { ControlMask,                  XK_F11,    spawn,          {.v = AudioLowerVolume } },
-        { ShiftMask|ControlMask,        XK_F11,    spawn,          {.v = MusicLowerVolume } },
-        { 0,                            0x1008ff13,spawn,          {.v = AudioRaiseVolume } },
-        { ShiftMask,                    0x1008ff13,spawn,          {.v = MusicRaiseVolume } },
-        { ControlMask,                  XK_F12,    spawn,          {.v = AudioRaiseVolume } },
-        { ShiftMask|ControlMask,        XK_F12,    spawn,          {.v = MusicRaiseVolume } },
-        { 0,                            0x1008ff12,spawn,          {.v = AudioMute } },
-        { 0,                            0x1008ffa9,spawn,          {.v = TouchpadToggle } },
+  /* Multimedia Keys */
+  { 0,                            0x1008ff16,spawn,          {.v = AudioPrev } },
+  { 0,                            0x1008ff26,spawn,          {.v = AudioPrev } },
+  { ControlMask,                  XK_F8,     spawn,          {.v = AudioPrev } },
+  { 0,                            0x1008ff14,spawn,          {.v = AudioPlay } },
+  { ControlMask,                  XK_F9,     spawn,          {.v = AudioPlay } },
+  { 0,                            0x1008ff17,spawn,          {.v = AudioNext } },
+  { 0,                            0x1008ff27,spawn,          {.v = AudioNext } },
+  { ControlMask,                  XK_F10,    spawn,          {.v = AudioNext } },
+  { MODKEY,                       XK_F9,     spawn,          {.v = AudioPauseAfterNext } },
+  { 0,                            0x1008ff11,spawn,          {.v = AudioLowerVolume } },
+  { ShiftMask,                    0x1008ff11,spawn,          {.v = MusicLowerVolume } },
+  { ControlMask,                  XK_F11,    spawn,          {.v = AudioLowerVolume } },
+  { ShiftMask|ControlMask,        XK_F11,    spawn,          {.v = MusicLowerVolume } },
+  { 0,                            0x1008ff13,spawn,          {.v = AudioRaiseVolume } },
+  { ShiftMask,                    0x1008ff13,spawn,          {.v = MusicRaiseVolume } },
+  { ControlMask,                  XK_F12,    spawn,          {.v = AudioRaiseVolume } },
+  { ShiftMask|ControlMask,        XK_F12,    spawn,          {.v = MusicRaiseVolume } },
+  { 0,                            0x1008ff12,spawn,          {.v = AudioMute } },
+  { 0,                            0x1008ffa9,spawn,          {.v = TouchpadToggle } },
 
-        /* Lock Screen */
-        { MODKEY|ShiftMask,             XK_z,      spawn,          {.v = LockScreen } },
-        /* Mouse movement with keyboard */
+  /* Lock Screen */
+  { MODKEY|ShiftMask,             XK_z,      spawn,          {.v = LockScreen } },
+  /* Mouse movement with keyboard */
 
-        { MODKEY,                       XK_i,      spawn,          {.v = Mouse} },
+  { MODKEY,                       XK_i,      spawn,          {.v = Mouse} },
 
-        { MODKEY|ShiftMask,             XK_p,      spawn,          {.v = ChBg} },
-        { MODKEY|ControlMask|ShiftMask, XK_Return, spawn,          {.v = BlankWin } },
-        
-        /* Multiple Monitors stuff. If re-enabled, change the incnmaster keys. */
+  { MODKEY|ShiftMask,             XK_p,      spawn,          {.v = ChBg} },
+  { MODKEY|ControlMask|ShiftMask, XK_Return, spawn,          {.v = BlankWin } },
+  
+  /* Multiple Monitors stuff. If re-enabled, change the incnmaster keys. */
 	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
