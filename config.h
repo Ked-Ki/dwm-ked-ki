@@ -16,7 +16,7 @@ static const Bool extrabar          = True;     /* False means no extra bar */
 static const Bool statusmarkup      = True;     /* True means use pango markup in status message */
 
 /* tagging */
-static const char *tags[] = { "term", "web", "games", "4", "5", "6", "7", "8", "video"};
+static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9"};
 
 static const Rule rules[] = {
 	/* class      instance    title       tags mask     isfloating   monitor */
@@ -47,7 +47,7 @@ static const Layout layouts[] = {
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
-static char dmenumon[2] = "1"; /* component of dmenucmd, manipulated in spawn() */
+//static char dmenumon[2] = "1"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "run-recent.sh", "-fn", font, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
 static const char *termcmd[]  = { "urxvt", "-tr", "-sh", "15", NULL };
 static const char *AudioPrev[] = { "music_control.sh", "-c", "prev", NULL }; 
@@ -118,7 +118,6 @@ static Key keys[] = {
   { ControlMask,                  XK_F12,    spawn,          {.v = AudioRaiseVolume } },
   { ShiftMask|ControlMask,        XK_F12,    spawn,          {.v = MusicRaiseVolume } },
   { 0,                            0x1008ff12,spawn,          {.v = AudioMute } },
-  { 0,                            0x1008ffa9,spawn,          {.v = TouchpadToggle } },
 
   /* Lock Screen */
   { MODKEY|ShiftMask,             XK_z,      spawn,          {.v = LockScreen } },
